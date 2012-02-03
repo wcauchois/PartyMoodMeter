@@ -1,0 +1,8 @@
+*.swp
+
+.metadata
+.project
+.classpath
+.settings
+android_app/bin
+android_app/gen
