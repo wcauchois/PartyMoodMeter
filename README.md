@@ -2,6 +2,7 @@ Getting started with android_app
 --------------------------------
 
 Open Eclipse, go to Window -> Preferences -> Java -> Code Style -> Formatter -> Import...
+
 Then select eclipse_format.xml from the project dir.
 
 
