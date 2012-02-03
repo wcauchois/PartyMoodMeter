@@ -1,8 +1,10 @@
 *.swp
-
+*.pyc
+venv
+android_app/bin
+android_app/gen
+# Eclipse shit
 .metadata
 .project
 .classpath
 .settings
-android_app/bin
-android_app/gen
