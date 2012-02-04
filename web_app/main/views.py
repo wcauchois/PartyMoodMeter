@@ -10,4 +10,8 @@ def json_result(view):
 
 @json_result
 def places(request):
- return ['hello', 'world', 'this', 'is', 'a', 'rather', 'long', 'list']
+ return [
+   dict(name='Tim\'s Party', id=1, num_people=5),
+   dict(name='Bill\'s Party', id=2, num_people=100),
+   dict(name='DJ Tiesto at Safeco Field', id=3, num_people=50000),
+ ]
