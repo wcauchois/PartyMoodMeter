@@ -2,6 +2,7 @@ package party.mood.meter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -21,6 +22,9 @@ public class MainActivity extends Activity implements SensorEventListener {
 
     sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
     accelSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    
+    Intent intent = new Intent(MainActivity.this, CheckInActivity.class);
+    startActivity(intent);
   }
 
   public void onAccuracyChanged(Sensor sensor, int accuracy) {

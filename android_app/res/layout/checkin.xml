@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="422dp" >
+    </ListView>
+    <Button
+        android:id="@+id/check_in_button"
+        android:background="@drawable/btn_green"
+        style="@style/ButtonText"
+        android:layout_width="match_parent"
+        android:layout_height="70sp"
+        android:text="Check-in" />
+
+</LinearLayout>
