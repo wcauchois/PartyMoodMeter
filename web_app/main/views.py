@@ -10,4 +10,4 @@ def json_result(view):
 
 @json_result
 def places(request):
- return ['hello', 'world']
+ return ['hello', 'world', 'this', 'is', 'a', 'rather', 'long', 'list']
