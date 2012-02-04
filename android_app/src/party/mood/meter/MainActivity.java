@@ -23,7 +23,7 @@ public class MainActivity extends Activity implements SensorEventListener {
     sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
     accelSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
     
-    Intent intent = new Intent(MainActivity.this, CheckInActivity.class);
+    Intent intent = new Intent(MainActivity.this, PlacesListActivity.class);
     startActivity(intent);
   }
 
