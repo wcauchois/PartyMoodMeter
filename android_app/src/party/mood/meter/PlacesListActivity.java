@@ -50,9 +50,9 @@ public class PlacesListActivity extends ListActivity {
     getListView().setOnItemClickListener(new OnItemClickListener() {
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         try {
-          int placeId = places.getJSONObject(position).getInt("id");
-          Intent checkinIntent = new Intent(PlacesListActivity.this, CheckInActivity.class);
-          checkinIntent.setData(Uri.parse("http://partymoodmeter.herokuapp.com/place?id=" + placeId));
+          Intent checkinIntent = new Intent(getBaseContext(), CheckInActivity.class);
+          checkinIntent.putExtra("place",
+              Utils.convertJSONObjectToBundle(places.getJSONObject(position)));
           startActivity(checkinIntent);
         } catch(JSONException e) { /* pass */ }
       }

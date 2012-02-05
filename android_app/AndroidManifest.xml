@@ -22,7 +22,14 @@
         <activity
             android:name=".PlacesListActivity"
             android:label="" >
-            
+        </activity>
+        <activity
+            android:name=".CheckInActivity"
+            android:label="">
+        </activity>
+        <activity
+            android:name=".PartyMoodActivity"
+            android:label="">
         </activity>
     </application>
 
