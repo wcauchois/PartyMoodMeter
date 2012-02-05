@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <Button
+        android:id="@+id/stop_button"
+        android:background="@drawable/btn_red"
+        style="@style/ButtonText"
+        android:layout_width="match_parent"
+        android:layout_height="70sp"
+        android:text="@string/stop_partying" />
+</LinearLayout>
