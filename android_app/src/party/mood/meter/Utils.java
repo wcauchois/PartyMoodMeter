@@ -7,6 +7,8 @@ import org.json.JSONObject;
 import android.os.Bundle;
 
 public class Utils {
+  public static final String SITE_ROOT = "http://partymoodmeter.herokuapp.com";
+  
   public static Bundle convertJSONObjectToBundle(JSONObject obj) throws JSONException {
     Bundle result = new Bundle();
     JSONArray names = obj.names();

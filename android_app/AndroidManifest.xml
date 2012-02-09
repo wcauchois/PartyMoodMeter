@@ -31,6 +31,7 @@
             android:name=".PartyMoodActivity"
             android:label="">
         </activity>
+        <service android:name=".DataUploadService" />
     </application>
 
 </manifest>
