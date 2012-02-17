@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import Context, RequestContext, loader
+from django.views.decorators.csrf import csrf_exempt
+
 import json
 
 def json_result(view):
@@ -15,3 +17,8 @@ def places(request):
    dict(name='Bill\'s Party', id=2, num_people=100),
    dict(name='DJ Tiesto at Safeco Field', id=3, num_people=50000),
  ]
+
+@csrf_exempt
+def submit_sensor(request):
+  print request.raw_post_data
+  return HttpResponse('')
