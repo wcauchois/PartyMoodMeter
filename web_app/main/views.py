@@ -4,6 +4,7 @@ from django.template import Context, RequestContext, loader
 from django.views.decorators.csrf import csrf_exempt
 
 import json
+import logging
 
 def json_result(view):
   def view_prime(*args):
@@ -18,12 +19,10 @@ def places(request):
    dict(name='DJ Tiesto at Safeco Field', id=3, num_people=50000),
  ]
 
-last_thing = ''
-
 def index(request):
-  return HttpResponse(last_thing)
+  return HttpResponse('')
 
 @csrf_exempt
 def submit_sensor(request):
-  last_thing = request.raw_post_data
+  logging.debug(request.raw_post_data)
   return HttpResponse('')
