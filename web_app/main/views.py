@@ -18,7 +18,12 @@ def places(request):
    dict(name='DJ Tiesto at Safeco Field', id=3, num_people=50000),
  ]
 
+last_thing = ''
+
+def index(request):
+  return HttpResponse(last_thing)
+
 @csrf_exempt
 def submit_sensor(request):
-  print request.raw_post_data
+  last_thing = request.raw_post_data
   return HttpResponse('')
