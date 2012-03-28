@@ -8,7 +8,8 @@ Then select eclipse_format.xml from the project dir.
 Using SensorSimulator
 ---------------------
 
-The ZIP is in third_party/. See [this StackOverflow answer](http://stackoverflow.com/a/3926715) for installation instructions.
+SensorSimulator allows you to simulate accelerometer readings in the emulator. The ZIP is in third_party/.
+See [this StackOverflow answer](http://stackoverflow.com/a/3926715) for installation instructions.
 
 Getting started with web_app
 ============================
