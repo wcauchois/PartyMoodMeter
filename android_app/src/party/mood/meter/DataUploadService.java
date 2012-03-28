@@ -12,15 +12,15 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
+import org.openintents.sensorsimulator.hardware.Sensor;
+import org.openintents.sensorsimulator.hardware.SensorEvent;
+import org.openintents.sensorsimulator.hardware.SensorEventListener;
+import org.openintents.sensorsimulator.hardware.SensorManagerSimulator;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 public class DataUploadService extends Service {
@@ -28,7 +28,7 @@ public class DataUploadService extends Service {
   private static final String API_ENDPOINT = Utils.SITE_ROOT + "/submit_sensor";
   
   private ScheduledExecutorService mScheduler;
-  private SensorManager mSensorManager;
+  private SensorManagerSimulator mSensorManager;
   private Sensor mAccelSensor;
   private UploadSensorData mUploadSensorData;
   
@@ -55,6 +55,7 @@ public class DataUploadService extends Service {
         JSONObject objectToSubmit = new JSONObject();
         objectToSubmit.put("taad", timeAveragedAverageDelta);
         
+        Log.d("DataUploadService", "taad: " + timeAveragedAverageDelta);
         HttpPost post = new HttpPost(mApiEndpoint);
         post.setEntity(new StringEntity(objectToSubmit.toString()));
         HttpClient client = new DefaultHttpClient();
@@ -67,6 +68,7 @@ public class DataUploadService extends Service {
     public void onAccuracyChanged(Sensor sensor, int accuracy) { }
 
     public void onSensorChanged(SensorEvent evt) {
+      Log.d("DataUploadService", "got sensor changed event");
       if(mCurrentValues != null) {
         if(mValueDeltas == null) {
           mValueDeltas = new float[evt.values.length];
@@ -83,7 +85,9 @@ public class DataUploadService extends Service {
   @Override
   public void onCreate() {
     mScheduler = Executors.newScheduledThreadPool(1);
-    mSensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+    //mSensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+    mSensorManager = SensorManagerSimulator.getSystemService(this, SENSOR_SERVICE);
+    mSensorManager.connectSimulator();
     mAccelSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
   }
   
@@ -94,9 +98,10 @@ public class DataUploadService extends Service {
     } catch(URISyntaxException e) {
       /* pass */
     }
-    mSensorManager.registerListener(mUploadSensorData, mAccelSensor, SensorManager.SENSOR_DELAY_NORMAL);
+    mSensorManager.registerListener(mUploadSensorData, mAccelSensor, SensorManagerSimulator.SENSOR_DELAY_NORMAL);
     mScheduler.scheduleAtFixedRate(mUploadSensorData, 0, UPLOAD_PERIOD, TimeUnit.SECONDS);
     Toast.makeText(this, "service started", Toast.LENGTH_SHORT).show(); // XXX
+    Log.d("DataUploadService", "service started!!");
     return START_STICKY;
   }
 
