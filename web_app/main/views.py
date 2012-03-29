@@ -26,3 +26,14 @@ def index(request):
 def submit_sensor(request):
   logging.debug(request.raw_post_data)
   return HttpResponse('')
+
+###############################################################################
+###### Room Views
+###############################################################################
+
+def mood(request, room_id):
+  context = RequestContext(request, {
+    'room_id': room_id
+  })
+  return render_to_response('mood.html', context)
+

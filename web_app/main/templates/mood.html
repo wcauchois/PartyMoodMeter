@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block head %}
+<script type="text/javascript">
+var needleRotation = 30;
+deg2Rad = function(x) { return x * (Math.PI / 180.0); };
+function updateNeedle() {
+  var ofs = $('#meter').offset();
+  var leftCorrection = 120 * Math.cos(deg2Rad(90 - needleRotation));
+  var topCorrection = 50 * Math.sin(deg2Rad(90 - needleRotation));
+  $('#needle').css('left', (ofs.left + 220 + leftCorrection) + 'px');
+  $('#needle').css('top', (ofs.top - 20 + topCorrection) + 'px');
+  $('#needle').css('-webkit-transform', 'rotate('+needleRotation+'deg)');
+}
+$(document).ready(function() {
+  updateNeedle();
+  var accum = 1;
+  window.setInterval(function() {
+    needleRotation += accum;
+    if(needleRotation > 50 || needleRotation < -50)
+      accum *= -1;
+    updateNeedle();
+  }, 10);
+});
+$(window).resize(updateNeedle);
+</script>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+<div class="meter">
+<img id="meter" src="/media/meter.png">
+<img id="needle" src="/media/needle.png">
+</div>
+</div>
+{% endblock %}

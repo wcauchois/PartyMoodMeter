@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import patterns, include, url
+import settings
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -8,13 +9,19 @@ urlpatterns = patterns('',
   url(r'^places.json$', 'main.views.places'),
   url(r'^submit_sensor$', 'main.views.submit_sensor'),
   url(r'^$', 'main.views.index'),
-    # Examples:
-    # url(r'^$', 'web_app.views.home', name='home'),
-    # url(r'^web_app/', include('web_app.foo.urls')),
+  url(r'^room/(?P<room_id>\d+)/mood', 'main.views.mood'),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+  # Examples:
+  # url(r'^$', 'web_app.views.home', name='home'),
+  # url(r'^web_app/', include('web_app.foo.urls')),
 
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
+  # Uncomment the admin/doc line below to enable admin documentation:
+  # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+
+  # Uncomment the next line to enable the admin:
+  # url(r'^admin/', include(admin.site.urls)),
+)
+urlpatterns += patterns('',
+  (r'^media/(?P<path>.*)$', 'django.views.static.serve',
+    {'document_root':     settings.MEDIA_ROOT})
 )
