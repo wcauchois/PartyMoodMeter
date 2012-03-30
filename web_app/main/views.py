@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 import json
 import logging
+from models import *
 
 def json_result(view):
   def view_prime(*args):
@@ -27,9 +28,18 @@ def submit_sensor(request):
   logging.debug(request.raw_post_data)
   return HttpResponse('')
 
+@csrf_exempt
+def submit_mood(request):
+  payload = json.loads(request.raw_post_data)
+  print payload['hi']
+  return HttpResponse('')
+
 ###############################################################################
 ###### Room Views
 ###############################################################################
+
+def mood_value(request, room_id):
+  pass
 
 def mood(request, room_id):
   context = RequestContext(request, {

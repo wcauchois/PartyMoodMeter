@@ -10,3 +10,6 @@ android_app/gen
 .settings
 # for android
 project.properties
+# for django
+local_settings.py
+dev.db
