@@ -10,7 +10,8 @@ urlpatterns = patterns('',
   url(r'^submit_sensor$', 'main.views.submit_sensor'),
   url(r'^submit_mood$', 'main.views.submit_mood'),
   url(r'^$', 'main.views.index'),
-  url(r'^room/(?P<room_id>\d+)/mood', 'main.views.mood'),
+  url(r'^room/(?P<room_id>\d+)/mood_value$', 'main.views.mood_value'),
+  url(r'^room/(?P<room_id>\d+)/mood$', 'main.views.mood'),
 
   # Examples:
   # url(r'^$', 'web_app.views.home', name='home'),

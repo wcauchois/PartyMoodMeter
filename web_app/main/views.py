@@ -8,8 +8,8 @@ import logging
 from models import *
 
 def json_result(view):
-  def view_prime(*args):
-    return HttpResponse(json.dumps(view(*args)), mimetype='application/json')
+  def view_prime(*args, **kwargs):
+    return HttpResponse(json.dumps(view(*args, **kwargs)), mimetype='application/json')
   return view_prime
 
 @json_result
@@ -52,8 +52,12 @@ def submit_mood(request):
 ###### Room Views
 ###############################################################################
 
+@json_result
 def mood_value(request, room_id):
-  pass
+  readings = MoodReading.objects.filter(room_id=int(room_id))
+  total = sum(r.mood for r in readings)
+  average = total / float(len(readings))
+  return {'average': average}
 
 def mood(request, room_id):
   context = RequestContext(request, {
