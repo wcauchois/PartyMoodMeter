@@ -31,7 +31,21 @@ def submit_sensor(request):
 @csrf_exempt
 def submit_mood(request):
   payload = json.loads(request.raw_post_data)
-  print payload['hi']
+
+  user_id = payload['user_id']
+  room_id = payload['room_id']
+  mood = payload['mood']
+
+  readings = MoodReading.objects.filter(user_id=user_id)
+  if len(readings) == 0:
+    reading = MoodReading()
+    reading.user_id = user_id
+  else:
+    reading = readings[0]
+  reading.room_id = room_id
+  reading.mood = mood
+  reading.save()
+
   return HttpResponse('')
 
 ###############################################################################
