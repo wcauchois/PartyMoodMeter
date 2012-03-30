@@ -59,11 +59,12 @@ STALE_TIMEOUT = 10 # seconds
 @json_result
 def mood_value(request, room_id):
   readings = MoodReading.objects.filter(room_id=int(room_id))
-  total = sum(r.mood for r in readings if time() - r.timestamp < STALE_TIMEOUT)
-  if len(readings) == 0:
+  timely_readings = [r for r in readings if time() - r.timestamp < STALE_TIMEOUT]
+  total = sum(r.mood for r in timely_readings)
+  if len(timely_readings) == 0:
     average = 0.0
   else:
-    average = total / float(len(readings))
+    average = total / float(len(timely_readings))
   return {'average': average}
 
 def mood(request, room_id):
