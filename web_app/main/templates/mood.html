@@ -6,9 +6,9 @@ deg2Rad = function(x) { return x * (Math.PI / 180.0); };
 function updateNeedle() {
   var ofs = $('#meter').offset();
   var leftCorrection = 120 * Math.cos(deg2Rad(90 - needleRotation));
-  var topCorrection = 50 * Math.sin(deg2Rad(90 - needleRotation));
+  var topCorrection = 120 * Math.sin(deg2Rad(90 - needleRotation));
   $('#needle').css('left', (ofs.left + 220 + leftCorrection) + 'px');
-  $('#needle').css('top', (ofs.top - 20 + topCorrection) + 'px');
+  $('#needle').css('top', (ofs.top + 110 - topCorrection) + 'px');
   $('#needle').css('-webkit-transform', 'rotate('+needleRotation+'deg)');
 }
 $(document).ready(function() {
@@ -16,7 +16,7 @@ $(document).ready(function() {
   var accum = 1;
   window.setInterval(function() {
     needleRotation += accum;
-    if(needleRotation > 50 || needleRotation < -50)
+    if(needleRotation > 90 || needleRotation < -90)
       accum *= -1;
     updateNeedle();
   }, 10);
