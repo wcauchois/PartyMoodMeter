@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 import json
 import logging
+from time import time
 from models import *
 
 def json_result(view):
@@ -44,6 +45,7 @@ def submit_mood(request):
     reading = readings[0]
   reading.room_id = room_id
   reading.mood = mood
+  reading.timestamp = int(time())
   reading.save()
 
   return HttpResponse('')
@@ -52,11 +54,16 @@ def submit_mood(request):
 ###### Room Views
 ###############################################################################
 
+STALE_TIMEOUT = 10 # seconds
+
 @json_result
 def mood_value(request, room_id):
   readings = MoodReading.objects.filter(room_id=int(room_id))
-  total = sum(r.mood for r in readings)
-  average = total / float(len(readings))
+  total = sum(r.mood for r in readings if time() - r.timestamp < STALE_TIMEOUT)
+  if len(readings) == 0:
+    average = 0.0
+  else:
+    average = total / float(len(readings))
   return {'average': average}
 
 def mood(request, room_id):

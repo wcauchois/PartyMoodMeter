@@ -1,24 +1,27 @@
 {% extends "base.html" %}
 {% block head %}
 <script type="text/javascript">
-var needleRotation = 0;
+var currentAngle = -90;
+var targetAngle = currentAngle;
 var roomId = {{room_id}};
 deg2Rad = function(x) { return x * (Math.PI / 180.0); };
 function updateNeedle() {
   var ofs = $('#meter').offset();
-  var leftCorrection = 120 * Math.cos(deg2Rad(90 - needleRotation));
-  var topCorrection = 120 * Math.sin(deg2Rad(90 - needleRotation));
+  var leftCorrection = 120 * Math.cos(deg2Rad(90 - currentAngle));
+  var topCorrection = 120 * Math.sin(deg2Rad(90 - currentAngle));
   $('#needle').css('left', (ofs.left + 220 + leftCorrection) + 'px');
   $('#needle').css('top', (ofs.top + 110 - topCorrection) + 'px');
-  $('#needle').css('-webkit-transform', 'rotate('+needleRotation+'deg)');
+  $('#needle').css('-webkit-transform', 'rotate('+currentAngle+'deg)');
 }
 $(document).ready(function() {
   updateNeedle();
-  var accum = 1;
   window.setInterval(function() {
-    needleRotation += accum;
-    if(needleRotation > 90 || needleRotation < -90)
-      accum *= -1;
+    $.getJSON('/room/'+roomId+'/mood_value.json', function(data) {
+      targetAngle = (data.average * 1.8 - 90.0);
+    });
+  }, 500);
+  window.setInterval(function() {
+    currentAngle += (targetAngle - currentAngle) * 0.1;
     updateNeedle();
   }, 10);
 });
