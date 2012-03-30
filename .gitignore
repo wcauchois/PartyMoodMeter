@@ -8,3 +8,5 @@ android_app/gen
 .project
 .classpath
 .settings
+# for android
+project.properties
