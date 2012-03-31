@@ -27,5 +27,14 @@ public class Utils {
     }
     return result;
   }
+  
+  // http://en.wikipedia.org/wiki/Numerical_differentiation
+  // http://upload.wikimedia.org/wikipedia/en/math/6/d/c/6dc717fa5e96fdad5d91afa7957190e4.png
+  public static double differentiateFive(double h, double[] points) {
+    double numer = -points[4] + 8*points[3] - 8*points[1] + points[0],
+           denom = 12*h,
+           const_ = (Math.pow(h, 4)/30.0) * Math.pow(points[2], 5);
+    return (numer/denom) + const_;
+  }
 }
 
