@@ -97,7 +97,6 @@ public class DataUploadService extends Service {
     }
 
     public void onSensorChanged(SensorEvent evt) {
-      Log.d("DataUploadService", "got sensor changed event");
       mCurrentValues = evt.values;
       /*
        * if(mCurrentValues != null) { if(mValueDeltas == null) { mValueDeltas =
