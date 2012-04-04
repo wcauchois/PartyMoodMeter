@@ -7,10 +7,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 import org.openintents.sensorsimulator.hardware.Sensor;
 import org.openintents.sensorsimulator.hardware.SensorEvent;
@@ -32,8 +28,7 @@ public class DataUploadService extends Service {
   private Sensor mAccelSensor;
   private UploadSensorData mUploadSensorData;
 
-  private static class UploadSensorData implements Runnable,
-      SensorEventListener {
+  private static class UploadSensorData implements Runnable, SensorEventListener {
     private URI mApiEndpoint;
     private float[] mCurrentValues = null;
     private double[] xValues = new double[5];
@@ -68,7 +63,9 @@ public class DataUploadService extends Service {
           objectToSubmit.put("yDeriv", yDeriv);
           objectToSubmit.put("zDeriv", zDeriv);
           
-          Log.d("DataUploadService", objectToSubmit.toString());
+          Log.d("DataUploadService", "yValues: " + Arrays.toString(yValues));
+          Log.d("DataUploadService", "yDeriv: " + yDeriv);
+          //Log.d("DataUploadService", objectToSubmit.toString());
     		  
     		  clock = 0;
     	  }
